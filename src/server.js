@@ -25,10 +25,18 @@ app.get('/animais', (req, res) => {
   return res.status(200).json(animais);
 });
 
+// Endpoint para deletar todos os animais (útil para limpeza de dados durante os testes)
+app.delete('/animais', (req, res) => {
+  animais = []; // Limpa o banco de dados em memória
+  return res.status(200).json({ message: 'Todos os animais foram removidos' });
+});
+
+// A exportação do app aqui é essencial para os testes
 module.exports = app;
 
+// Inicia o servidor apenas quando não estamos rodando testes
 if (require.main === module) {
-  const port = process.env.PORT || 3000; // Garantir que a porta seja configurável
+  const port = '3000';
   app.listen(port, function () {
     console.log(`App rodando na porta ${port}`);
   });
